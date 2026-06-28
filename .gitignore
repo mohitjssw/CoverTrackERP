@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+
+# Environment files
+.env
+
+# Logs
+npm-debug.log*
+
+# Build folders
+dist/
+build/
+
+# Node modules
+node_modules/
+
+# Database
+*.db
+*.sqlite
+
+# VS Code
+.vscode/
+
+# Coverage
+coverage/
