@@ -1,23 +1,14 @@
 import { useEffect, useState } from "react";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} from "@mui/material";
 import api from "../api/api";
-import MasterPage from "../components/common/MasterPage";
+import MasterPage from "../components/master/MasterPage";
+import DataTable from "../components/master/DataTable";
 
 export default function Locations() {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
     api.get("/locations")
-      .then((res) => {
-  console.log("Locations from API:", res.data);
-  setLocations(res.data);
-})
+      .then((res) => setLocations(res.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -27,25 +18,15 @@ export default function Locations() {
       subtitle="Manage factory, warehouse and future stock locations."
       buttonText="Add Location"
     >
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell><b>Code</b></TableCell>
-            <TableCell><b>Location Name</b></TableCell>
-            <TableCell><b>Type</b></TableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {locations.map((location) => (
-            <TableRow key={location.code}>
-              <TableCell>{location.code}</TableCell>
-              <TableCell>{location.name}</TableCell>
-              <TableCell>{location.type}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <DataTable
+        rowKey="code"
+        rows={locations}
+        columns={[
+          { field: "code", header: "Code" },
+          { field: "name", header: "Location Name" },
+          { field: "type", header: "Type" },
+        ]}
+      />
     </MasterPage>
   );
 }

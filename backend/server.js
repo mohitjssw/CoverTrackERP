@@ -5,6 +5,18 @@ const cors = require("cors");
 
 const locationRoutes = require("./routes/locations");
 
+const brandRoutes = require("./routes/brands");
+
+const mobileModelRoutes = require("./routes/mobileModels");
+
+const seriesRoutes = require("./routes/series");
+
+const seriesColourRoutes = require("./routes/seriesColours");
+
+const packagingTypeRoutes = require("./routes/packagingTypes");
+
+const productRoutes = require("./routes/products");
+
 const app = express();
 const PORT = 5001;
 
@@ -12,6 +24,18 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/locations", locationRoutes);
+
+app.use("/api/brands", brandRoutes);
+
+app.use("/api/mobile-models", mobileModelRoutes);
+
+app.use("/api/series", seriesRoutes);
+
+app.use("/api/series-colours", seriesColourRoutes);
+
+app.use("/api/packaging-types", packagingTypeRoutes);
+
+app.use("/api/products", productRoutes);
 
 app.get("/", (req, res) => {
   res.json({

@@ -12,6 +12,7 @@ export default function MasterPage({
   title,
   subtitle,
   buttonText = "Add",
+  onAdd,
   children,
 }) {
   return (
@@ -24,9 +25,9 @@ export default function MasterPage({
           <Typography color="text.secondary">{subtitle}</Typography>
         </Box>
 
-        <Button variant="contained" startIcon={<AddIcon />}>
-          {buttonText}
-        </Button>
+      <Button variant="contained" startIcon={<AddIcon />} onClick={onAdd}>
+  {buttonText}
+</Button>
       </Box>
 
       <Card sx={{ mb: 3 }}>
