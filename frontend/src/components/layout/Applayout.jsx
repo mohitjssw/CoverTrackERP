@@ -28,6 +28,7 @@ export default function AppLayout({ children }) {
         { label: "Series Colours", path: "/series-colours" },
         { label: "Customers", path: "/customers" },
         { label: "Machines", path: "/machines" },
+        { label: "Moulds", path: "/moulds" },
       ],
     },
     {

@@ -17,6 +17,8 @@ const packagingTypeRoutes = require("./routes/packagingTypes");
 
 const productRoutes = require("./routes/products");
 
+const mouldRoutes = require("./routes/moulds");
+
 const app = express();
 const PORT = 5001;
 
@@ -36,6 +38,9 @@ app.use("/api/series-colours", seriesColourRoutes);
 app.use("/api/packaging-types", packagingTypeRoutes);
 
 app.use("/api/products", productRoutes);
+
+app.use("/api/moulds", mouldRoutes);
+
 
 app.get("/", (req, res) => {
   res.json({

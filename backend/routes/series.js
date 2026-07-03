@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   db.all(
-    "SELECT id, code, name, category, description FROM series WHERE active = 1 ORDER BY name",
+    "SELECT id, code, name, category, design_thickness_mm, description FROM series WHERE active = 1 ORDER BY name",
     [],
     (err, rows) => {
       if (err) return res.status(500).json({ error: err.message });

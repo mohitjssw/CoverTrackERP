@@ -25,11 +25,12 @@ export default function Series() {
       <DataTable
         rowKey="id"
         rows={series}
-        columns={[
-          { field: "code", header: "Code" },
-          { field: "name", header: "Series Name" },
-          { field: "category", header: "Category" },
-        ]}
+      columns={[
+  { field: "code", header: "Code" },
+  { field: "name", header: "Series Name" },
+  { field: "category", header: "Category" },
+  { field: "design_thickness_mm", header: "Thickness (mm)" },
+]}
       />
     </MasterPage>
   );

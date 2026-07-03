@@ -31,12 +31,13 @@ db.serialize(() => {
       ('FAC', 'Shahjahanpur Factory', 'Manufacturing'),
       ('GGN', 'Gurgaon Warehouse', 'Warehouse')
   `);
-  db.run(`
+db.run(`
   CREATE TABLE IF NOT EXISTS series (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     code TEXT UNIQUE NOT NULL,
     name TEXT UNIQUE NOT NULL,
     category TEXT,
+    design_thickness_mm REAL,
     description TEXT,
     active INTEGER DEFAULT 1,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -49,6 +50,14 @@ db.run(`
     ('HEX', 'Caseology / Hexa', 'Rugged TPU', 'Rugged TPU cover with Black, Blue and Grey colours'),
     ('CND', 'MagSafe Design / Candy Case', 'Slim TPU', 'Plain TPU design with MagSafe-style symbol'),
     ('LTH', 'Leather Insert Groove Series', 'TPU + Leather Insert', 'TPU cover with groove for leather insert')
+`);
+
+db.run(`
+  INSERT OR IGNORE INTO series (code, name, category, design_thickness_mm, description)
+  VALUES
+    ('HEX', 'Caseology / Hexa', 'Rugged TPU', 1.8, 'Rugged TPU cover with Black, Blue and Grey colours'),
+    ('CND', 'MagSafe Design / Candy Case', '2mm TPU', 1.8, 'Plain TPU design with MagSafe-style symbol'),
+    ('LTH', 'Leather Insert Groove Series', 'TPU + Leather Insert', 1.6, 'TPU cover with groove for leather insert')
 `);
 
 db.run(`
@@ -146,6 +155,20 @@ db.run(`
   )
 `);
 
+db.run(`
+  CREATE TABLE IF NOT EXISTS moulds (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    mould_code TEXT UNIQUE NOT NULL,
+    product_id INTEGER NOT NULL,
+    cavities INTEGER,
+    status TEXT DEFAULT 'Development',
+    active INTEGER DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (product_id) REFERENCES products(id)
+  )
+`);
+
   // ======================
   // Brands
   // ======================
@@ -174,13 +197,16 @@ db.run(`
       ('RED', 'Redmi')
   `);
 
-  db.run(`
+ db.run(`
   CREATE TABLE IF NOT EXISTS mobile_models (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     brand_id INTEGER NOT NULL,
     name TEXT NOT NULL,
+    model_code TEXT UNIQUE,
+    launch_year INTEGER,
     active INTEGER DEFAULT 1,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
     FOREIGN KEY (brand_id) REFERENCES brands(id),
     UNIQUE(brand_id, name)
   )

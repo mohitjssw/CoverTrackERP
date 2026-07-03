@@ -6,6 +6,7 @@ import MobileModels from "./pages/MobileModels";
 import Series from "./pages/Series";
 import SeriesColours from "./pages/SeriesColours";
 import Products from "./pages/Products";
+import Moulds from "./pages/Moulds";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/series" element={<Series />} />
         <Route path="/series-colours" element={<SeriesColours />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/moulds" element={<Moulds />} />
       </Routes>
     </AppLayout>
   );

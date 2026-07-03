@@ -79,6 +79,7 @@ export default function Products() {
             { field: "colours", header: "Colours" },
             { field: "variant_codes", header: "Variant Codes" },
             { field: "status", header: "Status" },
+            { field: "design_thickness_mm", header: "Thickness (mm)" },
           ]}
         />
       </MasterPage>
