@@ -7,6 +7,7 @@ import Series from "./pages/Series";
 import SeriesColours from "./pages/SeriesColours";
 import Products from "./pages/Products";
 import Moulds from "./pages/Moulds";
+import Materials from "./pages/Materials";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/series-colours" element={<SeriesColours />} />
         <Route path="/products" element={<Products />} />
         <Route path="/moulds" element={<Moulds />} />
+        <Route path="/materials" element={<Materials />} />
       </Routes>
     </AppLayout>
   );

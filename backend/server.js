@@ -19,6 +19,11 @@ const productRoutes = require("./routes/products");
 
 const mouldRoutes = require("./routes/moulds");
 
+const productCategoryRoutes = require("./routes/productCategories");
+
+const materialCategoryRoutes = require("./routes/materialCategories");
+const materialRoutes = require("./routes/materials");
+
 const app = express();
 const PORT = 5001;
 
@@ -40,6 +45,11 @@ app.use("/api/packaging-types", packagingTypeRoutes);
 app.use("/api/products", productRoutes);
 
 app.use("/api/moulds", mouldRoutes);
+
+app.use("/api/product-categories", productCategoryRoutes);
+
+app.use("/api/material-categories", materialCategoryRoutes);
+app.use("/api/materials", materialRoutes);
 
 
 app.get("/", (req, res) => {

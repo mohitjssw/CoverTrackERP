@@ -61,6 +61,73 @@ db.run(`
 `);
 
 db.run(`
+  CREATE TABLE IF NOT EXISTS product_categories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    code TEXT UNIQUE NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    active INTEGER DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
+db.run(`
+  INSERT OR IGNORE INTO product_categories
+  (code, name, description)
+  VALUES
+    ('MC', 'Mobile Cover', 'TPU / Hybrid mobile covers'),
+    ('ST', 'Standy', 'Universal standy / kickstand products'),
+    ('GP', 'General Product', 'Other finished products')
+`);
+
+db.run(`
+  CREATE TABLE IF NOT EXISTS material_categories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    code TEXT UNIQUE NOT NULL,
+    name TEXT NOT NULL,
+    active INTEGER DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
+db.run(`
+  INSERT OR IGNORE INTO material_categories (code, name)
+  VALUES
+    ('TPU', 'TPU'),
+    ('PCABS', 'PC / ABS'),
+    ('PC', 'Polycarbonate'),
+    ('MB', 'Masterbatch'),
+    ('LEA', 'Leather'),
+    ('MAG', 'Magnet'),
+    ('PKG', 'Packaging')
+`);
+
+db.run(`
+  CREATE TABLE IF NOT EXISTS materials (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    material_code TEXT UNIQUE,
+    category_id INTEGER NOT NULL,
+    supplier TEXT,
+    grade TEXT,
+    colour TEXT,
+    hardness TEXT,
+    specific_gravity REAL,
+    drying_temp REAL,
+    drying_time REAL,
+    melt_temp_min REAL,
+    melt_temp_max REAL,
+    mould_temp_min REAL,
+    mould_temp_max REAL,
+    remarks TEXT,
+    active INTEGER DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(category_id)
+      REFERENCES material_categories(id)
+  )
+`);
+
+db.run(`
   CREATE TABLE IF NOT EXISTS series_colours (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     series_id INTEGER NOT NULL,
@@ -126,6 +193,7 @@ db.run(`
   CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     product_code TEXT UNIQUE,
+    category_id INTEGER NOT NULL,
     brand_id INTEGER NOT NULL,
     mobile_model_id INTEGER NOT NULL,
     series_id INTEGER NOT NULL,
@@ -168,6 +236,27 @@ db.run(`
     FOREIGN KEY (product_id) REFERENCES products(id)
   )
 `);
+
+db.run(`
+  CREATE TABLE IF NOT EXISTS product_categories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    code TEXT UNIQUE NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    active INTEGER DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
+db.run(`
+  INSERT OR IGNORE INTO product_categories
+  (code, name, description)
+  VALUES
+  ('MC','Mobile Cover','TPU / Hybrid mobile covers'),
+  ('ST','Standy','Round standy / kickstand'),
+  ('AC','Accessory','General accessories')
+`);
+
 
   // ======================
   // Brands
