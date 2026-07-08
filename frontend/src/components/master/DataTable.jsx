@@ -1,4 +1,6 @@
 import {
+  Box,
+  Button,
   Table,
   TableHead,
   TableRow,
@@ -6,28 +8,64 @@ import {
   TableBody,
 } from "@mui/material";
 
-export default function DataTable({ columns, rows, rowKey = "id" }) {
-  return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          {columns.map((col) => (
-            <TableCell key={col.field}>
-              <b>{col.header}</b>
-            </TableCell>
-          ))}
-        </TableRow>
-      </TableHead>
+export default function DataTable({
+  columns,
+  rows,
+  rowKey = "id",
+  onEdit,
+  onDeactivate,
+}) {
+  const showActions = onEdit || onDeactivate;
 
-      <TableBody>
-        {rows.map((row) => (
-          <TableRow key={row[rowKey]}>
+  return (
+    <Box>
+      <Table>
+        <TableHead>
+          <TableRow>
             {columns.map((col) => (
-              <TableCell key={col.field}>{row[col.field]}</TableCell>
+              <TableCell key={col.field}>
+                <b>{col.header}</b>
+              </TableCell>
             ))}
+
+            {showActions && (
+              <TableCell>
+                <b>Actions</b>
+              </TableCell>
+            )}
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHead>
+
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow key={row[rowKey]}>
+              {columns.map((col) => (
+                <TableCell key={col.field}>{row[col.field] ?? ""}</TableCell>
+              ))}
+
+              {showActions && (
+                <TableCell>
+                  {onEdit && (
+                    <Button size="small" onClick={() => onEdit(row)}>
+                      Edit
+                    </Button>
+                  )}
+
+                  {onDeactivate && (
+                    <Button
+                      size="small"
+                      color="error"
+                      onClick={() => onDeactivate(row)}
+                    >
+                      Deactivate
+                    </Button>
+                  )}
+                </TableCell>
+              )}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Box>
   );
 }

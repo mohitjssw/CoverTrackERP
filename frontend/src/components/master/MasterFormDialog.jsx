@@ -6,10 +6,23 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function MasterFormDialog({ open, title, label, onClose, onSave }) {
+export default function MasterFormDialog({
+  open,
+  title,
+  label,
+  initialValue = "",
+  onClose,
+  onSave,
+}) {
   const [value, setValue] = useState("");
+
+  useEffect(() => {
+    if (open) {
+      setValue(initialValue);
+    }
+  }, [open, initialValue]);
 
   const handleSave = () => {
     if (!value.trim()) {
@@ -18,7 +31,6 @@ export default function MasterFormDialog({ open, title, label, onClose, onSave }
     }
 
     onSave(value.trim());
-    setValue("");
   };
 
   return (
